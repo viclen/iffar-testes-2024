@@ -5,6 +5,20 @@ class UserController {
   constructor() {
     // Dummy database (Replace with an actual database in production)
     this.users = [];
+
+    this.resetUsers();
+  }
+
+  async resetUsers() {
+    this.users = [
+      {
+        id: 1,
+        firstName: 'Example',
+        lastName: 'User',
+        email: 'user@example.com',
+        password: await bcrypt.hash('12345678', 10)
+      }
+    ];
   }
 
   async register(req, res) {
@@ -25,7 +39,6 @@ class UserController {
         lastName: req.body.lastName,
         email: req.body.email,
         password: hashedPassword,
-        address: req.body.address || null // Optional address
       };
 
       // Add the user to the database
@@ -40,7 +53,7 @@ class UserController {
   async login(req, res) {
     try {
       // Find the user by email
-      const user = users.find(user => user.email === req.body.email);
+      const user = this.users.find(user => user.email === req.body.email);
       if (!user) {
         return res.status(401).json({ message: 'Invalid email or password' });
       }
@@ -52,10 +65,11 @@ class UserController {
       }
 
       // Generate JWT token
-      const token = jwt.sign({ userId: user.id }, 'your_secret_key', { expiresIn: '1h' });
+      const token = jwt.sign({ userId: user.id }, 'SECRET_123', { expiresIn: '1h' });
 
       res.status(200).json({ token });
     } catch (error) {
+      console.log(error);
       res.status(500).json({ message: 'Internal server error' });
     }
   }
@@ -70,16 +84,16 @@ class UserController {
 
     try {
       // Verify the token
-      const decoded = jwt.verify(token, 'your_secret_key');
+      const decoded = jwt.verify(token, 'SECRET_123');
       const userId = decoded.userId;
 
       // Find the user by ID
-      const user = users.find(user => user.id === userId);
+      const user = this.users.find(user => user.id === userId);
       if (!user) {
         return res.status(404).json({ message: 'User not found' });
       }
 
-      res.status(200).json({ user: { id: user.id, email: user.email } });
+      res.status(200).json({ user: { ...user, password: undefined } });
     } catch (error) {
       res.status(401).json({ message: 'Invalid token' });
     }
