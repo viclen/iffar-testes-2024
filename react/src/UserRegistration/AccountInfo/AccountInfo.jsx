@@ -22,8 +22,10 @@ const AccountInfo = ({ nextStep, prevStep, handleChange, userData, handleSubmit 
         onChange={handleChange('password')}
         value={userData.password}
       />
-      <button onClick={prevStep}>Back</button>
-      <button onClick={handleSubmit}>Next</button>
+      <div className="footer">
+        <button onClick={prevStep}>Back</button>
+        <button onClick={handleSubmit}>Next</button>
+      </div>
     </div>
   );
 };

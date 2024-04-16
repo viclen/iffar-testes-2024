@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import PersonalInfo from './PersonalInfo';
 import AccountInfo from './AccountInfo';
 import Confirmation from './Confirmation';
@@ -37,7 +37,7 @@ const UserRegistration = () => {
     nextStep();
   };
 
-  const currentStep = useMemo(() => {
+  const getCurrentStep = () => {
     switch (step) {
       case 1:
         return (
@@ -75,14 +75,14 @@ const UserRegistration = () => {
       default:
         return null;
     }
-  }, []);
+  };
 
   return (
-    <div>
+    <div className="main-container">
       <h1>User registration</h1>
 
       <div>
-        {currentStep}
+        {getCurrentStep()}
       </div>
     </div>
   );

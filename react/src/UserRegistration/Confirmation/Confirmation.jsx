@@ -8,8 +8,10 @@ const Confirmation = ({ prevStep, userData, handleSubmit }) => {
       <p>Last Name: {userData.lastName}</p>
       <p>Email: {userData.email}</p>
       <p>Username: {userData.username}</p>
-      <button onClick={prevStep}>Back</button>
-      <button onClick={handleSubmit}>Confirm</button>
+      <div className="footer">
+        <button onClick={prevStep}>Back</button>
+        <button onClick={handleSubmit}>Confirm</button>
+      </div>
     </div>
   );
 };

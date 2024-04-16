@@ -16,7 +16,9 @@ const PersonalInfo = ({ nextStep, handleChange, userData, handleSubmit }) => {
         onChange={handleChange('lastName')}
         value={userData.lastName}
       />
-      <button onClick={handleSubmit}>Next</button>
+      <div className="footer">
+        <button onClick={handleSubmit}>Next</button>
+      </div>
     </div>
   );
 };
