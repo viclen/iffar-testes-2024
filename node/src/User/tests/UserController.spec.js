@@ -7,7 +7,7 @@ const mockResponse = {
 };
 
 describe('User class', () => {
-  let user;
+  let user = new UserController();
 
   beforeEach(() => {
     user = new UserController();
@@ -21,10 +21,12 @@ describe('User class', () => {
       password: 'password123'
     };
 
+    expect(user.users).toHaveLength(1);
+
     await user.register({ body: userData }, mockResponse);
 
-    expect(user.users).toHaveLength(1);
-    expect(user.users[0]).toMatchObject({
+    expect(user.users).toHaveLength(2);
+    expect(user.users[1]).toMatchObject({
       firstName: 'John',
       lastName: 'Doe',
       email: 'john@example.com'

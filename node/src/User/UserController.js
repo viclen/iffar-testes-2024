@@ -9,14 +9,14 @@ class UserController {
     this.resetUsers();
   }
 
-  async resetUsers() {
+  resetUsers() {
     this.users = [
       {
         id: 1,
         firstName: 'Example',
         lastName: 'User',
         email: 'user@example.com',
-        password: await bcrypt.hash('12345678', 10)
+        password: bcrypt.hashSync('12345678', 10)
       }
     ];
   }
